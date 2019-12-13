@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guet.dao.IManageDao">
+	<select id="showUserinfo_0" resultType="User" parameterType="map">
+		select * from citylevel_user limit #{pageStart},#{pageSize}
+	</select>
+	<select id="showUserinfo_1" resultType="User" parameterType="map">
+		select * from arealevel_user limit #{pageStart},#{pageSize}
+	</select>
+	<select id="showUserinfo_2" resultType="User" parameterType="map">
+		select * from firmlevel_user limit #{pageStart},#{pageSize}
+	</select>
+	<select id="showUserinfo_3" resultType="User" parameterType="map">
+		select * from thirdparty_user limit #{pageStart},#{pageSize}
+	</select>
+	<select id="selUser_Count" resultType="long">
+		select count(*) from user where user_untype=#{user_untype}
+	</select>
+	<select id="check_userifexist" resultType="User">
+		select * from user where user_tele=#{user_tele}
+	</select>
+	<insert id="adduser">
+		insert into user(user_name,user_tele,user_password,user_email,user_wechat,user_unit,user_untype,user_state) 
+		values(#{user_name},#{user_tele},#{user_password},#{user_email},#{user_wechat},#{user_unit},#{user_untype},#{user_state})
+	</insert>
+	<update id="updateuser">
+		update user set user_tele=#{user_tele},user_password=#{user_password},user_email=#{user_email},
+		user_wechat=#{user_wechat},user_untype=#{user_untype} where user_name=#{user_name}
+	</update>
+	<delete id="deleuser">
+	delete from user where user_tele=#{user_tele}
+	</delete>
+	<select id="showUnitinfo" resultType="Unit" parameterType="map">
+		select * from unit order by unit_type limit #{pageStart},#{pageSize} 
+	</select>
+	<select id="selUnit_Count" resultType="long">
+		select count(*) from unit
+	</select>
+	<select id="showunitinfo_0" resultType="Unit" parameterType="map">
+		select * from citylevel_unit limit #{pageStart},#{pageSize}
+	</select>
+	<select id="showunitinfo_1" resultType="Unit" parameterType="map">
+		select * from arealevel_unit limit #{pageStart},#{pageSize}
+	</select>
+	<select id="showunitinfo_2" resultType="Unit" parameterType="map">
+		select * from firmlevel_unit limit #{pageStart},#{pageSize}
+	</select>
+	<select id="showunitinfo_3" resultType="Unit" parameterType="map">
+		select * from thirdparty_unit limit #{pageStart},#{pageSize}
+	</select>
+	<select id="seldetailUnit_Count" resultType="long">
+		select count(*) from unit where unit_type=#{unit_type}
+	</select>
+	<select id="check_unitifexist" resultType="Unit">
+		select * from unit where unit_name=#{0} and unit_type=#{1}
+	</select>
+	<insert id="addunit">
+		insert into unit(unit_name,unit_address,unit_type,unit_header,unit_heTele,unit_InSeAdmin,unit_AdTele)
+		values(#{unit_name},#{unit_address},#{unit_type},#{unit_header},#{unit_heTele},#{unit_InSeAdmin},#{unit_AdTele})
+	</insert>
+	<update id="updateunit">
+		update unit set unit_address=#{unit_address},unit_type=#{unit_type},unit_header=#{unit_header},unit_heTele=#{unit_heTele},unit_InSeAdmin=#{unit_InSeAdmin},unit_AdTele=#{unit_AdTele}
+		where unit_name=#{unit_name}
+	</update>
+	<delete id="deleunit">
+		delete from unit where unit_name=#{unit_name}
+	</delete>
+	<delete id="deleuser_sameunit">
+		delete from user where user_unit=#{unit_name}
+	</delete>
+</mapper>

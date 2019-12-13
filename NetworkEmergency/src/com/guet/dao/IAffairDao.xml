@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guet.dao.IAffairDao">
+	<select id="showAffairInfo_1" resultType="Affair">
+		select * from deal_affair where aff_incstate=#{0} 
+	</select>
+	<select id="showAffairInfo_0" resultType="Affair">
+		select * from todo_affair where aff_incstate=#{0} 
+	</select>
+	<select id="showAffairInfo_2" resultType="Affair">
+		select * from done_affair where aff_incstate=#{0} 
+	</select>
+	<select id="select_state0" resultType="BarBean">
+		select * from aff_incstate_number0
+	</select>
+	<select id="select_state1" resultType="BarBean">
+		select * from aff_incstate_number1
+	</select>
+	<select id="select_state2" resultType="BarBean">
+		select * from aff_incstate_number2
+	</select>
+	<select id="state_statistics" resultType="PieBean">
+		select * from state_statistics
+	</select>
+</mapper>
