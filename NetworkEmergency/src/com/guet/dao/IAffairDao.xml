@@ -24,4 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="state_statistics" resultType="PieBean">
 		select * from state_statistics
 	</select>
+	<select id="type_statistics" resultType="BarBean">
+		select * from type_statistics
+	</select>
 </mapper>

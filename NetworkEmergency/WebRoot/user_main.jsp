@@ -194,7 +194,7 @@
         </div>
         <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
         <ul class="list-unstyled">
-            <li class="active"><a href="user_main.jsp"> <i class="icon-home"></i>Home </a></li>
+            <li class="active"><a href="user_main.do"> <i class="icon-home"></i>Home </a></li>
             <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-windows"></i>事务管理 </a>
                 <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
                    	<li><a href="table.do?aff_incstate=0" onclick="dabai();">代办事物</a></li>
@@ -317,28 +317,20 @@
             <div class="col-lg-3 col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title"><span class="lstick"></span>事件类型</h4>
-                        <div id="visitor" style="height:250px; width:100%;"></div>
+                        <h4 class="card-title"><span class="lstick"></span>事件状态统计</h4>
+                        <div id="main" style="height:250px; width:100%;"></div>
                         <table class="table vm font-14">
                             <tr>
-                                <td class="b-0">违处信息</td>
-                                <td class="text-right font-medium b-0">38.5%</td>
+                                <td class="b-0">待处理事件</td>
+                                <td class="text-right font-medium b-0">${x_state[0]}件</td>
                             </tr>
                             <tr>
-                                <td class="b-0">网络攻击</td>
-                                <td class="text-right font-medium">30.8%</td>
+                                <td class="b-0">处理中事件</td>
+                                <td class="text-right font-medium b-0">${x_state[1]}件</td>
                             </tr>
                             <tr>
-                                <td class="b-0">恶意软件</td>
-                                <td class="text-right font-medium b-0">38.5%</td>
-                            </tr>
-                            <tr>
-                                <td class="b-0">信息泄露</td>
-                                <td class="text-right font-medium">30.8%</td>
-                            </tr>
-                            <tr>
-                                <td>安全威胁</td>
-                                <td class="text-right font-medium">30.8%</td>
+                                <td class="b-0">已完成事件</td>
+                                <td class="text-right font-medium b-0">${x_state[2]}件</td>
                             </tr>
                         </table>
                     </div>
@@ -377,5 +369,52 @@
 <script src="js/c3.min.js"></script>
 <!-- Chart JS -->
 <script src="js/dashboard.js"></script>
+<script src="js/echarts.min.js"></script>
+
+
+  </script>
+      
+      
+      
+      <script type="text/javascript">
+     var myChart = echarts.init(document.getElementById('main'));
+    option = {
+        title : {
+
+            x:'center'                 //标题位置   居中
+        },
+        tooltip : {
+            trigger: 'item',           //数据项图形触发，主要在散点图，饼图等无类目轴的图表中使用。
+            formatter: "{a} <br/>{b} : {c} ({d}%)"   //{a}（系列名称），{b}（数据项名称），{c}（数值）, {d}（百分比）用于鼠标悬浮时对应的显示格式和内容
+        },
+        legend: {                           //图例组件。
+            orient: 'vertical',             //图例列表的布局朝向
+            left: 'left',
+            data: ['未处理事件','处理中事件','已完成事件']
+        },
+        series : [              //系列列表。每个系列通过 type 决定自己的图表类型
+            {
+                name: '状态类型',
+                type: 'pie',
+                radius : '55%',
+                center: ['50%', '60%'],
+                data:[
+                    {value:"${x_state[0]}", name:'未处理事件'},
+                    {value:"${x_state[1]}", name:'处理中事件'},
+                    {value:"${x_state[2]}", name:'已完成事件'},
+                    
+                ],
+                itemStyle: {
+                    emphasis: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+    myChart.setOption(option);
+    </script>
 </body>
 </html>

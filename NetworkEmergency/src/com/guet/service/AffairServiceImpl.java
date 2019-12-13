@@ -48,6 +48,11 @@ public class AffairServiceImpl implements IAffairService {
 		List<PieBean> list=affairdao.state_statistics();
 		return list;
 	}
+	@Override
+	public List<BarBean> type_statistics() {
+		List<BarBean> list=affairdao.type_statistics();
+		return list;
+	}
 	
 	
 }

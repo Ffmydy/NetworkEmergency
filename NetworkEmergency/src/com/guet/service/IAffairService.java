@@ -12,4 +12,5 @@ public interface IAffairService {
 	List<BarBean> select_state1();
 	List<BarBean> select_state2();
 	List<PieBean> state_statistics();
+	List<BarBean> type_statistics();
 }

@@ -31,7 +31,7 @@ public class UserController {
 		else{
 		User user =service.userLogin(account_number, password);
 		if(user!=null){
-			mv.setViewName("forward:/user_main.jsp");
+			mv.setViewName("forward:/user_main.do");
 		}
 		else{
 			mv.addObject("login_error","账号密码错误，请确认后再输入。。。");

@@ -187,7 +187,7 @@
 
         <span class="heading">Main</span>
         <ul class="list-unstyled">
-          <li><a href="user_main.jsp"> <i class="icon-home"></i>Home </a></li>
+          <li><a href="user_main.do"> <i class="icon-home"></i>Home </a></li>
           <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-windows"></i>事务管理 </a>
            <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
                    	<li><a href="table.do?aff_incstate=0" onclick="dabai();">代办事物</a></li>
@@ -261,7 +261,6 @@
     <script src="js/front.js"></script>
     <script src="js/charts-custom.js"></script>
     <script src="js/front.js"></script>
-    
     <script type="text/javascript">
       // 基于准备好的dom，初始化echarts实例
       var myChart0 = echarts.init(document.getElementById('main1'));
@@ -399,7 +398,7 @@
      var myChart = echarts.init(document.getElementById('main4'));
     option = {
         title : {
-            text: '事件状态统计',       //大标题
+            text: '事件类型统计',       //大标题
 
             x:'center'                 //标题位置   居中
         },
@@ -410,18 +409,21 @@
         legend: {                           //图例组件。
             orient: 'vertical',             //图例列表的布局朝向
             left: 'left',
-            data: ['待处理事件','处理中事件','已处理事件']
+            data: ['违处信息','网络攻击','恶意软件','信息泄露','安全威胁']
         },
         series : [              //系列列表。每个系列通过 type 决定自己的图表类型
             {
-                name: '访问来源',
+                name: '事件类型',
                 type: 'pie',
                 radius : '55%',
                 center: ['50%', '60%'],
                 data:[
-                    {value:"${x_state[0]}", name:'待处理事件'},
-                    {value:"${x_state[1]}", name:'处理中事件'},
-                    {value:"${x_state[2]}", name:'已处理事件'},
+                    {value:"${x_state[0]}", name:'违处信息'},
+                    {value:"${x_state[1]}", name:'网络攻击'},
+                    {value:"${x_state[2]}", name:'恶意软件'},
+                    {value:"${x_state[3]}", name:'信息泄露'},
+                    {value:"${x_state[4]}", name:'安全威胁'},
+                    
                 ],
                 itemStyle: {
                     emphasis: {

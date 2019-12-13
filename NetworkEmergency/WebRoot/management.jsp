@@ -190,7 +190,7 @@
         </div>
         <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
         <ul class="list-unstyled">
-            <li><a href="user_main.jsp"> <i class="icon-home"></i>Home </a></li>
+            <li><a href="user_main.do"> <i class="icon-home"></i>Home </a></li>
              <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-windows"></i>事务管理 </a>
                 <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
                    	<li><a href="table.do?aff_incstate=0" onclick="dabai();">代办事物</a></li>

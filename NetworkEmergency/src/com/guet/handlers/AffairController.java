@@ -77,12 +77,12 @@ public class AffairController {
 			List<BarBean> list0=affairservice.select_state0();
 			List<BarBean> list1=affairservice.select_state1();
 			List<BarBean> list2=affairservice.select_state2();
-			List<PieBean> list3=affairservice.state_statistics();
-			int[] state_num=new int[3];
+			List<BarBean> list3=affairservice.type_statistics();
+			int[] type_num=new int[5];
 			//System.out.println(list3);
 			int i=0;
-			for (PieBean pie:list3){
-				state_num[i]=pie.getNum();
+			for (BarBean pie:list3){
+				type_num[i]=pie.getNum();
 				i++;
 			}
 			String[] x_name={"违处信息","网络攻击","恶意软件","信息泄露","安全威胁"};
@@ -91,15 +91,26 @@ public class AffairController {
 			request.setAttribute("liststate2", list2);
 			request.setAttribute("state_statistics", list3);
 			request.setAttribute("x_type", x_name);
-			request.setAttribute("x_state", state_num);
+			request.setAttribute("x_state", type_num);
 			request.getRequestDispatcher("/charts.jsp").forward(request, response);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-
-	
-	
-	
+	@RequestMapping("/user_main.do")
+	public void domain(HttpServletRequest request,HttpServletResponse response) throws ServletException,IOException{
+		try{
+			List<PieBean> list=affairservice.state_statistics();
+			int[] state_num=new int[3];
+			int i=0;
+			for(PieBean bean:list){
+				state_num[i]=bean.getNum();
+				i++;
+			}
+			request.setAttribute("x_state",state_num);
+			request.getRequestDispatcher("/user_main.jsp").forward(request, response);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+	}
 }
