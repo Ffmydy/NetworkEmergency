@@ -66,7 +66,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 </div>
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="log.jsp">日志</a>
+                                <a class="nav-link" href="log.do">日志</a>
                             </li>
 
                         </ul>

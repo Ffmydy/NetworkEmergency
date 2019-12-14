@@ -1,5 +1,8 @@
 package com.guet.handlers;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -9,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.guet.beans.Log;
 import com.guet.beans.User;
 import com.guet.service.IUserService;
 
@@ -31,6 +35,11 @@ public class UserController {
 		else{
 		User user =service.userLogin(account_number, password);
 		if(user!=null){
+			Date nowDate = new Date(System.currentTimeMillis());
+		    SimpleDateFormat time = new SimpleDateFormat("yyyy年MM月dd日HH时mm分ss秒");
+		    String log_time=time.format(nowDate);
+			Log log=new Log(0,user.getUser_id(),user.getUser_name(),log_time);
+			service.addlog(log);
 			mv.setViewName("forward:/user_main.do");
 		}
 		else{

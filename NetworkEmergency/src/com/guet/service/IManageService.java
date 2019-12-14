@@ -17,4 +17,5 @@ public interface IManageService {
 	void updateunit(Unit unit);
 	void deleunit(String unit_name);
 	void deleuser_sameunit(String unit_name);
+	PageInfo showlog(int pageSize, int pageNumber);
 }

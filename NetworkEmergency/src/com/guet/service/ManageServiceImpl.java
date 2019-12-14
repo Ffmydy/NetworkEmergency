@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 import com.guet.beans.User;
+import com.guet.beans.Log;
 import com.guet.beans.PageInfo;
 import com.guet.beans.Unit;
 import com.guet.dao.IManageDao;
@@ -131,6 +132,21 @@ public class ManageServiceImpl implements IManageService {
 	@Override
 	public void deleuser_sameunit(String unit_name) {
 		dao.deleuser_sameunit(unit_name);
+	}
+	@Override
+	public PageInfo showlog(int pageSize, int pageNumber) {
+		PageInfo pi=new PageInfo();
+		pi.setPageNumber(pageNumber);
+		pi.setPageSize(pageSize);
+		Map<String,Object> map=new HashMap<>();
+		map.put("pageStart",pageSize*(pageNumber-1));
+		map.put("pageSize", pageSize);
+		List<Log> list=dao.showlog(map);
+		Long total=dao.selLog_Count();
+		pi.setCount(total);
+		pi.setList(list);
+		pi.setTotal(total%pageSize==0?total/pageSize:total/pageSize+1);
+		return pi;
 	}
 
 }

@@ -1,10 +1,9 @@
 package com.guet.dao;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Map;
-
-import com.guet.beans.BarBean;
+import com.guet.beans.Log;
 import com.guet.beans.Unit;
 import com.guet.beans.User;
 
@@ -31,5 +30,7 @@ public interface IManageDao {
 	void updateunit(Unit unit);
 	void deleunit(String unit_name);
 	void deleuser_sameunit(String unit_name);
+	List<Log> showlog(Map<String, Object> map);
+	Long selLog_Count();
 	
 }

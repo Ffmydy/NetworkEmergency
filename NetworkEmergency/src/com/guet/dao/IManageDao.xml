@@ -70,4 +70,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleuser_sameunit">
 		delete from user where user_unit=#{unit_name}
 	</delete>
+	<select id="showlog" resultType="Log" parameterType="map">
+		select * from log limit #{pageStart},#{pageSize} 
+	</select>
+	<select id="selLog_Count" resultType="long">
+		select count(*) from log
+	</select>
 </mapper>

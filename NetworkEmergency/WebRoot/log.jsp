@@ -53,7 +53,7 @@
                                 </div>
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="log.jsp">日志</a>
+                                <a class="nav-link" href="log.do">日志</a>
                             </li>
 
                         </ul>
@@ -92,12 +92,13 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
+                            <c:forEach items="${PageInfo.list}" var="pi">
+                             <tr>
                                 <th scope="col">&nbsp;</th>
-                                <th scope="col">杜玉</th>
-                                <th scope="col" >2018-09</th>
+                                <th scope="col">${pi.user_name }</th>
+                                <th scope="col" >${pi.log_time }</th>
                                </tr>
-
+                            </c:forEach>
 
                             </tbody>
                         </table>
@@ -105,21 +106,23 @@
 
                     <div class="tm-table-mt tm-table-actions-row">
                         <div class="tm-table-actions-col-left">
-                            <button class="btn btn-danger">Delete Selected Items</button>
+                         
                         </div>
                         <div class="tm-table-actions-col-right">
                             <span class="tm-pagination-label">Page</span>
                             <nav aria-label="Page navigation" class="d-inline-block">
-                                <ul class="pagination tm-pagination">
-                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <span class="tm-dots d-block">...</span>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">13</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">14</a></li>
-                                </ul>
+                                <tr>
+					    <td colspan="4"><a
+						href="log.do?pageNumber=1&pageSize=5">首页</a>|
+						<a
+						href="log.do?pageNumber=${PageInfo.pageNumber-1 }&pageSize=${PageInfo.pageSize }"
+						<c:if test="${PageInfo.pageNumber<=1 }">  onclick="javascript:return false;"</c:if>>上一页</a>
+						<a
+						href="log.do?pageNumber=${PageInfo.pageNumber+1 }&pageSize=${PageInfo.pageSize }"
+						<c:if test="${PageInfo.pageNumber>=PageInfo.total}">  onclick="javascript:return false;"</c:if>>下一页</a>
+						第${PageInfo.pageNumber}页/ 共${PageInfo.total}页
+						(共${PageInfo.count}条数据) </td>
+				                   </tr>
                             </nav>
                         </div>
                     </div>

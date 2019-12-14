@@ -160,4 +160,24 @@ public class ManageController {
 		mv.addObject("deleUnit_SUC", "该单位删除成功");
 		return mv;
 	}
+	@RequestMapping("/log.do")
+	public ModelAndView dolog(HttpServletRequest request,HttpServletResponse response){
+		ModelAndView mv =new ModelAndView();
+		PageInfo pi=new PageInfo();
+		String pageSizeStr = request.getParameter("pageSize");
+		int pageSize=5;
+		if(pageSizeStr!=null&&!pageSizeStr.equals("")){
+			pageSize=Integer.parseInt(pageSizeStr);
+		}
+		String pageNumberStr=request.getParameter("pageNumber");
+		int pageNumber=1;
+		if(pageNumberStr!=null&&!pageNumberStr.equals("")){
+			pageNumber=Integer.parseInt(pageNumberStr); 
+		}
+		pi=service.showlog(pageSize, pageNumber);
+		mv.addObject("PageInfo", pi);
+		mv.setViewName("forward:/log.jsp");
+		return mv;
+		
+	}
 }
