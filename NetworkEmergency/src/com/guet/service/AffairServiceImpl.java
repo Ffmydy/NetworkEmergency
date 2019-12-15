@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import com.guet.beans.Affair;
 import com.guet.beans.BarBean;
 import com.guet.beans.PieBean;
+import com.guet.beans.Unit;
 import com.guet.dao.IAffairDao;
 @Service("affairService")
 public class AffairServiceImpl implements IAffairService {
@@ -47,6 +48,39 @@ public class AffairServiceImpl implements IAffairService {
 	public List<PieBean> state_statistics() {
 		List<PieBean> list=affairdao.state_statistics();
 		return list;
+	}
+	@Override
+	public List<Affair> toManagement() {
+		List<Affair> affairs=affairdao.toManagement();
+		return affairs;
+	}
+	@Override
+	public List<Affair> toConditon3(int aff_userType) {
+		List<Affair> affair3=affairdao.toConditon3(aff_userType);
+		return affair3;
+	}
+	@Override
+	public List<Unit> toUnit(int affair_type) {
+		List<Unit> units=affairdao.toUnit(affair_type);
+		for (Unit affair : units) {
+			System.out.println(affair.toString());
+		}
+		return units;
+	}
+	@Override
+	public List<Affair> toConditon2(int aff_shijian) {
+		List<Affair> affair2=affairdao.toConditon2(aff_shijian);
+		return affair2;
+	}
+	@Override
+	public List<Affair> toConditon4(String qiye_name) {
+		List<Affair> affair4=affairdao.toConditon4(qiye_name);
+		return affair4;
+	}
+	@Override
+	public List<Affair> toConditon1(String mydate) {
+		List<Affair> affair1=affairdao.toConditon1(mydate);
+		return affair1;
 	}
 	@Override
 	public List<BarBean> type_statistics() {

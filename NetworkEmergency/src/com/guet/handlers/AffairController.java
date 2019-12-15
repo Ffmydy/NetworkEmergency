@@ -1,7 +1,8 @@
 package com.guet.handlers;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,12 +16,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.github.pagehelper.util.StringUtil;
 import com.guet.beans.Affair;
 import com.guet.beans.BarBean;
 import com.guet.beans.PieBean;
+import com.guet.beans.Unit;
 import com.guet.service.IAffairService;
 
-import net.sf.json.JSONArray;
 
 @Controller
 public class AffairController {
@@ -97,6 +99,118 @@ public class AffairController {
 			e.printStackTrace();
 		}
 	}
+	
+	@RequestMapping("/management.do")
+	public ModelAndView toManagement(HttpServletRequest request,HttpServletResponse response){
+		ModelAndView mv=new ModelAndView();
+		
+		List<Affair> affairs=affairservice.toManagement();
+	
+		
+		mv.addObject("affairs", affairs);
+		mv.setViewName("forward:/management.jsp");
+		return mv;
+	}
+	
+	@RequestMapping("/Conditon3.do")
+	public ModelAndView toConditon3(HttpServletRequest request,HttpServletResponse response){
+		ModelAndView mv=new ModelAndView();
+		String affair_type_str=request.getParameter("xiaqu_id");
+		int affair_type=Integer.parseInt(affair_type_str);
+		
+		List<Affair> affairs=affairservice.toConditon3(affair_type);
+		System.out.println("我是condieno3===================="+affair_type);
+		
+		List<Unit> unit_name=affairservice.toUnit(affair_type);
+		
+		
+		for (Affair affair : affairs) {
+			System.out.println(affair.toString());
+		}
+		
+		mv.addObject("affairs3", affairs);
+		mv.addObject("unit_name", unit_name);
+		mv.addObject("xiaqu_id", affair_type);
+		mv.setViewName("forward:/management.jsp");
+		return mv;
+	}
+	
+	@RequestMapping("/Conditon2.do")
+	public ModelAndView toConditon2(HttpServletRequest request,HttpServletResponse response){
+		ModelAndView mv=new ModelAndView();
+		String affair_type_str=request.getParameter("shijian_id");
+		int affair_type=Integer.parseInt(affair_type_str);
+		
+		List<Affair> affairs=affairservice.toConditon2(affair_type);
+		System.out.println("我是condieno2===================="+affair_type);
+			
+		for (Affair affair : affairs) {
+			System.out.println("我是condieno2===================="+affair.toString());
+		}
+		mv.addObject("affairs3", affairs);
+		mv.setViewName("forward:/management.jsp");
+		return mv;
+	}
+	
+	@RequestMapping("/Conditon4.do")
+	public ModelAndView toConditon4(HttpServletRequest request,HttpServletResponse response){
+		ModelAndView mv=new ModelAndView();
+		
+		String qiye_name = request.getParameter("qiye_name");	
+		if(StringUtil.isNotEmpty(qiye_name)){
+    		try {
+    			qiye_name=URLDecoder.decode(qiye_name,"utf-8");
+    			} catch (UnsupportedEncodingException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}
+		}
+		List<Affair> affairs=affairservice.toConditon4(qiye_name);
+		System.out.println("我是condieno4===================="+qiye_name);
+			
+		String affair_type_str=request.getParameter("xiaqu_id");
+		int affair_type=Integer.parseInt(affair_type_str);
+				
+		System.out.println("我是condieno4===================="+affair_type);
+		
+		List<Unit> unit_name=affairservice.toUnit(affair_type);
+		
+
+		
+		mv.addObject("affairs3", affairs);
+		mv.addObject("unit_name", unit_name);
+		mv.addObject("qiye_id", qiye_name);
+		mv.setViewName("forward:/management.jsp");
+		return mv;
+	}
+	
+	@RequestMapping("/Conditon1.do")
+	public ModelAndView toConditon1(HttpServletRequest request,HttpServletResponse response){
+		ModelAndView mv=new ModelAndView();
+		
+		String mydate = request.getParameter("mydate_id");	
+//		if(StringUtil.isNotEmpty(qiye_name)){
+//    		try {
+//    			qiye_name=URLDecoder.decode(qiye_name,"utf-8");
+//    			} catch (UnsupportedEncodingException e) {
+//    				// TODO Auto-generated catch block
+//    				e.printStackTrace();
+//    			}
+//		}
+		List<Affair> affairs=affairservice.toConditon1(mydate);
+		System.out.println("我是condieno1===================="+mydate);
+		
+		for (Affair affair : affairs) {
+			System.out.println("我是condieno1===================="+affair.toString());
+		}
+		
+
+		mv.addObject("affairs3", affairs);
+	
+		mv.setViewName("forward:/management.jsp");
+		return mv;
+	}
+	
 	@RequestMapping("/user_main.do")
 	public void domain(HttpServletRequest request,HttpServletResponse response) throws ServletException,IOException{
 		try{
@@ -113,4 +227,5 @@ public class AffairController {
 			e.printStackTrace();
 		}
 	}
+	
 }

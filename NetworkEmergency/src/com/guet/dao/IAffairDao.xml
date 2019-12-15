@@ -27,4 +27,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="type_statistics" resultType="BarBean">
 		select * from type_statistics
 	</select>
+	
+	
+	
+	<select id="toManagement" resultType="Affair">
+		select * from affair
+	</select>
+	<select id="toConditon3" resultType="Affair">
+		SELECT * FROM affair,unit WHERE aff_uniName=unit_name AND unit_type=#{0}
+	</select>
+	<select id="toConditon2" resultType="Affair">
+		SELECT * FROM affair,unit WHERE aff_uniName=unit_name AND aff_incType=#{0}
+	</select>
+	<select id="toConditon4" resultType="Affair">
+		SELECT * FROM affair,unit WHERE aff_uniName=unit_name AND aff_uniName=#{qiye_name,jdbcType=VARCHAR}
+	</select>
+	<select id="toConditon1" resultType="Affair">
+		SELECT * FROM affair,unit WHERE aff_uniName=unit_name AND SUBSTR(aff_incTime,1,10)=#{my_date,jdbcType=VARCHAR}
+	</select>
+	<select id="toUnit" resultType="Unit">
+		SELECT * FROM unit WHERE unit_type=#{0}
+	</select>
+	
+	
 </mapper>

@@ -16,9 +16,7 @@
     <!-- https://getbootstrap.com/ -->
     <link rel="stylesheet" href="css/tooplate.css">
 
-    <style>
-
-    </style>
+    <link rel="stylesheet" href="css/icons.css">
 </head>
 <c:if test="${not empty deleUser_SUC }">
 <script type="text/javascript">
@@ -57,8 +55,8 @@
             <div class="row">
                 <div class="col-12">
                     <nav class="navbar navbar-expand-xl navbar-light bg-light">
-                        <a class="navbar-brand" href="index.html">
-                            <i class="fas fa-3x fa-tachometer-alt tm-site-icon"></i>
+                        <a class="navbar-brand" href="">
+                            <i class="css-icon-person"></i>
                             <h1 class="tm-site-title mb-0">网络应急系统管理员平台</h1>
                         </a>
                         <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -69,7 +67,7 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav mx-auto">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="unitinfo.do">单位管理
+                                    <a class="nav-link active" href="unitinfo.do">单位管理
                                         <span class="sr-only">(current)</span>
                                     </a>
                                 </li>
@@ -85,7 +83,7 @@
                                         <a class="dropdown-item" href="userinfo.do?user_untype=3">第三方安全服务公司用户</a>
                                     </div>
                                 </li>
-                                <li class="nav-item active">
+                                <li class="nav-item">
                                     <a class="nav-link" href="log.do">日志</a>
                                 </li>
 
@@ -93,8 +91,8 @@
                             <ul class="navbar-nav">
                                 <li class="nav-item">
                                     <a class="nav-link d-flex" href="index.jsp">
-                                        <i class="far fa-user mr-2 tm-logout-icon"></i>
                                         <span>Logout</span>
+                                        <i class="css-icon-right-circle"></i> 
                                     </a>
                                 </li>
                             </ul>
@@ -183,7 +181,7 @@
                                 <nav aria-label="Page navigation" class="d-inline-block">
                                                 <tr>
 					    <td colspan="4"><a
-						href="showunit.do?unit_type=${unit_type}&pageNumber=1&pageSize=2">首页</a>|
+						href="showunit.do?unit_type=${unit_type}&pageNumber=1&pageSize=5">首页</a>|
 						<a
 						href="showunit.do?unit_type=${unit_type}&pageNumber=${PageInfo.pageNumber-1 }&pageSize=${PageInfo.pageSize }"
 						<c:if test="${PageInfo.pageNumber<=1 }">  onclick="javascript:return false;"</c:if>>上一页</a>

@@ -16,33 +16,34 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <!-- https://getbootstrap.com/ -->
     <link rel="stylesheet" href="css/tooplate.css">
+    <link rel="stylesheet" href="css/icons.css">
 </head>
 
 <body id="reportsPage" class="bg02">
     <div class="" id="home">
         <div class="container">
-            <div class="row">
+             <div class="row">
                 <div class="col-12">
                     <nav class="navbar navbar-expand-xl navbar-light bg-light">
-                        <a class="navbar-brand" href="index.html">
-                            <i class="fas fa-3x fa-tachometer-alt tm-site-icon"></i>
+                        <a class="navbar-brand" href="">
+                            <i class="css-icon-person"></i>
                             <h1 class="tm-site-title mb-0">网络应急系统管理员平台</h1>
                         </a>
                         <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                aria-expanded="false" aria-label="Toggle navigation">
+                            aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
 
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav mx-auto">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="unitinfo.do">单位管理
+                                    <a class="nav-link " href="unitinfo.do">单位管理
                                         <span class="sr-only">(current)</span>
                                     </a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-                                       aria-expanded="false">
+                                    <a class="nav-link dropdown-toggle  active" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
                                         用户管理
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -52,7 +53,7 @@
                                         <a class="dropdown-item" href="userinfo.do?user_untype=3">第三方安全服务公司用户</a>
                                     </div>
                                 </li>
-                                <li class="nav-item active">
+                                <li class="nav-item">
                                     <a class="nav-link" href="log.do">日志</a>
                                 </li>
 
@@ -60,8 +61,8 @@
                             <ul class="navbar-nav">
                                 <li class="nav-item">
                                     <a class="nav-link d-flex" href="index.jsp">
-                                        <i class="far fa-user mr-2 tm-logout-icon"></i>
-                                        <span>Logout</span>
+                                    	<span>Logout</span>
+                                        <i class="css-icon-right-circle"></i>  
                                     </a>
                                 </li>
                             </ul>
@@ -122,7 +123,7 @@
                                 <nav aria-label="Page navigation" class="d-inline-block">
                                     <tr>
 					    <td colspan="4"><a
-						href="userinfo.do?user_untype=${user_untype}&pageNumber=1&pageSize=2">首页</a>|
+						href="userinfo.do?user_untype=${user_untype}&pageNumber=1&pageSize=5">首页</a>|
 						<a
 						href="userinfo.do?user_untype=${user_untype}&pageNumber=${PageInfo.pageNumber-1 }&pageSize=${PageInfo.pageSize }"
 						<c:if test="${PageInfo.pageNumber<=1 }">  onclick="javascript:return false;"</c:if>>上一页</a>

@@ -76,4 +76,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selLog_Count" resultType="long">
 		select count(*) from log
 	</select>
+	
 </mapper>

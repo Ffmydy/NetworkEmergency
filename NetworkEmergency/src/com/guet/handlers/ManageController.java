@@ -26,7 +26,7 @@ public class ManageController {
 			int user_untype=Integer.parseInt(user_untype_str);
 			PageInfo pi=new PageInfo();
 			String pageSizeStr = request.getParameter("pageSize");
-			int pageSize=2;
+			int pageSize=5;
 			if(pageSizeStr!=null&&!pageSizeStr.equals("")){
 				pageSize=Integer.parseInt(pageSizeStr);
 			}
@@ -89,7 +89,7 @@ public class ManageController {
 		ModelAndView mv=new ModelAndView();
 		PageInfo pi=new PageInfo();
 		String pageSizeStr = request.getParameter("pageSize");
-		int pageSize=2;
+		int pageSize=5;
 		if(pageSizeStr!=null&&!pageSizeStr.equals("")){
 			pageSize=Integer.parseInt(pageSizeStr);
 		}
@@ -110,7 +110,7 @@ public class ManageController {
 			int unit_type=Integer.parseInt(unit_type_str);
 			PageInfo pi=new PageInfo();
 			String pageSizeStr = request.getParameter("pageSize");
-			int pageSize=2;
+			int pageSize=5;
 			if(pageSizeStr!=null&&!pageSizeStr.equals("")){
 				pageSize=Integer.parseInt(pageSizeStr);
 			}
@@ -160,6 +160,7 @@ public class ManageController {
 		mv.addObject("deleUnit_SUC", "该单位删除成功");
 		return mv;
 	}
+	
 	@RequestMapping("/log.do")
 	public ModelAndView dolog(HttpServletRequest request,HttpServletResponse response){
 		ModelAndView mv =new ModelAndView();
@@ -178,6 +179,6 @@ public class ManageController {
 		mv.addObject("PageInfo", pi);
 		mv.setViewName("forward:/log.jsp");
 		return mv;
-		
 	}
+	
 }

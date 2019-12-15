@@ -22,8 +22,7 @@ public class UserServiceImpl implements IUserService {
 		User user=dao.userLogin(user_account,md5Password);
 		return user;
 	}
-	@Override
-	public void addlog(Log log) {
-		dao.addlog(log);
-	}
+		public void addlog(Log log) {
+			dao.addlog(log);
+		}
 }
