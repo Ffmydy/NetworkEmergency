@@ -121,8 +121,7 @@ function condition1(){
         <div class="sidebar-header d-flex align-items-center">
             <div class="avatar"><img src="img/avatar-4.jpg" alt="..." class="img-fluid rounded-circle"></div>
             <div class="title">
-                <h1 class="h5">Mark Stephen</h1>
-                <p>Web Designer</p>
+               <h1 class="h5"><%=request.getSession().getAttribute("User_name") %></h1>
             </div>
         </div>
         <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
@@ -230,8 +229,20 @@ function condition1(){
                         <td>${aff3.aff_id}</td>
                         <td>${aff3.aff_uniName}</td>
                         <td>${aff3.aff_incTime}</td>
-                        <td>${aff3.aff_incDes.substring(0,4)}</td>
-                        <td>${aff3.aff_incDes.substring(4)}</td>
+                        <td><c:choose>
+                        		<c:when test="${aff3.aff_incType==0 }">违处信息</c:when>
+                        		<c:when test="${aff3.aff_incType==1 }">网络攻击</c:when>
+                        		<c:when test="${aff3.aff_incType==2 }">恶意软件</c:when>
+                        		<c:when test="${aff3.aff_incType==3 }">信息泄露</c:when>
+                        		<c:when test="${aff3.aff_incType==4 }">安全威胁</c:when>
+                        </c:choose></td>
+                        <td>
+                        	<c:choose>
+                        		<c:when test="${aff3.aff_incstate==0}">未处理</c:when>
+                        		<c:when test="${aff3.aff_incstate==1}">处理中</c:when>
+                        		<c:when test="${aff3.aff_incstate==2}">已处理</c:when>
+                        	</c:choose>
+                        </td>
                     </tr>
 					</c:forEach>
                     </tbody>

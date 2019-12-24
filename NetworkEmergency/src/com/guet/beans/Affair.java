@@ -11,9 +11,25 @@ public class Affair {
 	private String aff_incTime;//事件发布时间段
 	private String aff_incDes;//事件具体描述
 	
+
+
 	public Affair() {
-		// TODO Auto-generated constructor stub
+		// TODO Auto-generated method stub
+		
 	}
+	
+	public Affair(Integer aff_id, Integer aff_incstate, Integer aff_incType, String aff_uniName, String aff_incTime,
+			String aff_incDes) {
+		super();
+		this.aff_id = aff_id;
+		this.aff_incstate = aff_incstate;
+		this.aff_incType = aff_incType;
+		this.aff_uniName = aff_uniName;
+		this.aff_incTime = aff_incTime;
+		this.aff_incDes = aff_incDes;
+	}
+	
+
 
 
 

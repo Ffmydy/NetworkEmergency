@@ -87,6 +87,27 @@ public class AffairServiceImpl implements IAffairService {
 		List<BarBean> list=affairdao.type_statistics();
 		return list;
 	}
-	
-	
+	@Override
+	public List<Affair> showownaffair(String user_unit) {
+		List<Affair> list=affairdao.showownaffair(user_unit);
+		return list;
+	}
+	@Override
+	public void detal(Integer aff_incstate, Integer aff_id) {
+		affairdao.detal(aff_incstate,aff_id);
+	}
+	@Override
+	public Unit checkifexist_unit(String unit_name) {
+		Unit unit=affairdao.checkifexit_unit(unit_name);
+		return unit;
+	}
+	@Override
+	public void transpondaffair(Integer aff_id, String unit_name) {
+		affairdao.transpondaffair(aff_id,unit_name);
+	}
+	@Override
+	public void publish(Affair affair) {
+		affairdao.publish(affair);
+		
+	}
 }

@@ -22,7 +22,9 @@ public interface IAffairService {
 	List<Unit> toUnit(int affair_type);
 	List<Affair> toConditon4(String qiye_name);
 	List<Affair> toConditon1(String mydate);
-	
-	
-
+	List<Affair> showownaffair(String user_unit);
+	void detal(Integer aff_incstate, Integer aff_id);
+	Unit checkifexist_unit(String unit_name);
+	void transpondaffair(Integer aff_id, String unit_name);
+	void publish(Affair affair);
 }

@@ -20,5 +20,9 @@ public interface IAffairDao {
 	List<Unit> toUnit(int unitName);
 	List<Affair> toConditon4(String qiye_name);
 	List<Affair> toConditon1(String my_date);
-	
+	List<Affair> showownaffair(String user_unit);
+	void detal(Integer aff_incstate, Integer aff_id);
+	Unit checkifexit_unit(String unit_name);
+	void transpondaffair(Integer aff_id, String unit_name);
+	void publish(Affair affair);
 }

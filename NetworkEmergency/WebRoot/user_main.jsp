@@ -37,8 +37,41 @@
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+     <style>
+        .indexUser tr th{
+            width: 14%;
+        }
+        .timeStyle{
+          width:150%;
+        }
+    </style>
 </head>
 <body>
+<c:if test="${not empty transpondSuc }">
+	<script type="text/javascript">
+		alert('${transpondSuc}')
+	</script>
+</c:if>
+<c:if test="${not empty transpondFail }">
+	<script type="text/javascript">
+		alert('${transpondFail}')
+	</script>
+</c:if>
+<c:if test="${not empty publishSuc }">
+	<script type="text/javascript">
+		alert('${publishSuc}')
+	</script>
+</c:if>
+<c:if test="${not empty publishFail }">
+	<script type="text/javascript">
+		alert('${publishFail}')
+	</script>
+</c:if>
+<c:if test="${not empty publishFail2 }">
+	<script type="text/javascript">
+		alert('${publishFail2}')
+	</script>
+</c:if>
 <header class="header">
     <nav class="navbar navbar-expand-lg">
         <div class="search-panel">
@@ -83,8 +116,8 @@
         <div class="sidebar-header d-flex align-items-center">
             <div class="avatar"><img src="img/avatar-4.jpg" alt="..." class="img-fluid rounded-circle"></div>
             <div class="title">
-                <h1 class="h5">Mark Stephen</h1>
-                <p>Web Designer</p>
+                <h1 class="h5"><%=request.getSession().getAttribute("User_name") %></h1>
+                <p style="color:white;"><%=request.getSession().getAttribute("User_unit") %><p>
             </div>
         </div>
         <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
@@ -114,7 +147,7 @@
                 <h3 class="text-themecolor">用户管理系统</h3>
             </div>
             <div class="col-md-7 align-self-center">
-                <a href="#" class="btn waves-effect waves-light btn-danger pull-right hidden-sm-down"> Upgrade to Pro</a>
+                <a href="publishaffair.jsp" class="btn waves-effect waves-light btn-danger pull-right hidden-sm-down">发布事件</a>
             </div>
         </div>
         <!-- ============================================================== -->
@@ -129,18 +162,59 @@
                     <div class="card-body">
                         <div class="d-flex">
                             <div>
-                                <h3 class="card-title m-b-5"><span class="lstick"></span>应急事件分级统计 </h3>
-                            </div>
-                            <div class="ml-auto">
-                                <select class="custom-select b-0">
-                                    <option selected="">January 2017</option>
-                                    <option value="1">February 2017</option>
-                                    <option value="2">March 2017</option>
-                                    <option value="3">April 2017</option>
-                                </select>
+                                <h3 class="card-title m-b-5"><span style="color:#398bf7"><%=request.getSession().getAttribute("User_unit") %></span>相关事件 </h3>
                             </div>
                         </div>
-                        <div id="sales-overview2" class="p-relative" style="height:360px;"></div>
+                       <!--  <div id="sales-overview2" class="p-relative" style="height:360px;"></div> -->
+						<div>
+						<table>
+							<thead class="indexUser">
+						   <tr>
+                       			<th>事件编号</th>
+                       			<th>事件类型</th>
+                       			<th>事件状态</th>
+                       			<th class="timeStyle">发布时间</th>
+                       			<th>事件描述</th>
+                       			<th>操作</th>
+                       		</tr>
+						</thead>
+						 <tbody>
+                            <c:forEach items="${list_ownaffair}" var="list">
+                               <tr>
+                                <th scope="col">${list.aff_id}</th>
+                                <th scope="col"><c:choose>
+                                	<c:when test="${list.aff_incType==0}">违处信息</c:when>
+                                	<c:when test="${list.aff_incType==1}">网络攻击</c:when>
+                                	<c:when test="${list.aff_incType==2}">恶意软件</c:when>
+                                	<c:when test="${list.aff_incType==3}">信息泄露</c:when>
+                                	<c:when test="${list.aff_incType==4}">安全威胁</c:when>
+                                </c:choose>
+                                </th>
+                                 <th scope="col"><c:choose>
+                                	<c:when test="${list.aff_incstate==0 }">未处理</c:when>
+                                	<c:when test="${list.aff_incstate==1 }">处理中</c:when>
+                                	<c:when test="${list.aff_incstate==2 }">已处理</c:when>
+                                </c:choose></th>
+                                <th scope="col">${list.aff_incTime}</th>
+                                <th scope="col">${list.aff_incDes }</th>
+                                <th scope="col">
+                                
+                                <form action="detal.do">
+                                <a href="transpond.jsp?aff_id=${list.aff_id }&aff_incstate=${list.aff_incstate }">转发</a>
+                                <select name="aff_incstate">
+                                	<option value="0">未处理</option>
+                                	<option value="1">处理中</option>
+                                	<option value="2">已处理</option>
+                                </select>
+                                <input name="aff_id" type="hidden" value="${list.aff_id }">
+                                <input type="submit" value="提交">
+                                </form>
+                                </th>
+                               </tr>
+                             </c:forEach>	
+                         </tbody>
+						</table>
+                       	 </div>	
                     </div>
                 </div>
             </div>
@@ -190,49 +264,42 @@
         <!-- ============================================================== -->
         <!-- Projects of the month -->
         <!-- ============================================================== -->
-        <div class="row">
+       <!--  <div class="row"> -->
 
-            <div class="col-lg-8 col-xlg-9">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex">
-                            <h4 class="card-title"><span class="lstick"></span>当前规模情况</h4>
-                            <ul class="list-inline m-b-0 ml-auto">
-                                <li>
-                                    <h6 class="text-muted text-success"><i class="fa fa-circle font-10 m-r-10 "></i>Site A view</h6> </li>
-                                <li>
-                                    <h6 class="text-muted text-info"><i class="fa fa-circle font-10 m-r-10"></i>Site B view</h6> </li>
-                            </ul>
-                        </div>
-                        <div class="website-visitor p-relative m-t-30" style="width:100%;"></div>
-                    </div>
-                </div>
-            </div>
+           
             <!-- contact -->
-            <div class="col-lg-3 col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title"><span class="lstick"></span>事件状态统计</h4>
-                        <div id="main" style="height:250px; width:100%;"></div> 
-                        <table class="table vm font-14">
-                            <tr>
-                                <td class="b-0">待处理事件</td>
-                                <td class="text-right font-medium b-0">${x_state[0]}件</td>
-                            </tr>
-                            <tr>
-                                <td class="b-0">处理中事件</td>
-                                <td class="text-right font-medium b-0">${x_state[1]}件</td>
-                            </tr>
-                            <tr>
-                                <td class="b-0">已完成事件</td>
-                                <td class="text-right font-medium b-0">${x_state[2]}件</td>
-                            </tr>
-                        </table>
+           <!--  <div class="col-lg-3 col-md-12"  > -->
+              <div class="row" style="position: relative;margin-left: 76%;width:100%;margin-top: 0%">
+
+
+                <!-- contact -->
+                <div class="col-lg-3 col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title"><span class="lstick"></span>事件状态统计</h4>
+                            <div id="main" style="height:250px; width:100%;"></div>
+                            <table class="table vm font-14">
+                                <tr>
+                                    <td class="b-0">待处理事件</td>
+                                    <td class="text-right font-medium b-0">${x_state[0]}件</td>
+                                </tr>
+                                <tr>
+                                    <td class="b-0">处理中事件</td>
+                                    <td class="text-right font-medium b-0">${x_state[1]}件</td>
+                                </tr>
+                                <tr>
+                                    <td class="b-0">已完成事件</td>
+                                    <td class="text-right font-medium b-0">${x_state[2]}件</td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-        </div>
+            </div>
+            <!-- </div> -->
+
+        <!-- </div> -->
         <!-- ============================================================== -->
         <!-- Blog and website visit -->
         <!-- ============================================================== -->

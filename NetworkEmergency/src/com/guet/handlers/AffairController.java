@@ -3,12 +3,15 @@ package com.guet.handlers;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -21,6 +24,7 @@ import com.guet.beans.Affair;
 import com.guet.beans.BarBean;
 import com.guet.beans.PieBean;
 import com.guet.beans.Unit;
+import com.guet.beans.User;
 import com.guet.service.IAffairService;
 
 
@@ -189,14 +193,6 @@ public class AffairController {
 		ModelAndView mv=new ModelAndView();
 		
 		String mydate = request.getParameter("mydate_id");	
-//		if(StringUtil.isNotEmpty(qiye_name)){
-//    		try {
-//    			qiye_name=URLDecoder.decode(qiye_name,"utf-8");
-//    			} catch (UnsupportedEncodingException e) {
-//    				// TODO Auto-generated catch block
-//    				e.printStackTrace();
-//    			}
-//		}
 		List<Affair> affairs=affairservice.toConditon1(mydate);
 		System.out.println("我是condieno1===================="+mydate);
 		
@@ -212,7 +208,7 @@ public class AffairController {
 	}
 	
 	@RequestMapping("/user_main.do")
-	public void domain(HttpServletRequest request,HttpServletResponse response) throws ServletException,IOException{
+	public void domain(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws ServletException,IOException{
 		try{
 			List<PieBean> list=affairservice.state_statistics();
 			int[] state_num=new int[3];
@@ -221,11 +217,74 @@ public class AffairController {
 				state_num[i]=bean.getNum();
 				i++;
 			}
+			User user=(User) session.getAttribute("user");
+			String user_unit=user.getUser_unit();
+			List<Affair> list_ownaffair=affairservice.showownaffair(user_unit);
+			//System.out.println(list_ownaffair);
+			request.setAttribute("list_ownaffair", list_ownaffair);
+			session.setAttribute("User_name", user.getUser_name());
 			request.setAttribute("x_state",state_num);
+			session.setAttribute("User_unit", user.getUser_unit());
 			request.getRequestDispatcher("/user_main.jsp").forward(request, response);
 		}catch (Exception e){
 			e.printStackTrace();
 		}
+	}
+	@RequestMapping("/detal.do")
+	public ModelAndView dodetal(HttpServletRequest request,HttpServletResponse response){
+		Integer aff_incstate=Integer.parseInt(request.getParameter("aff_incstate"));
+		Integer aff_id=Integer.parseInt(request.getParameter("aff_id"));
+		affairservice.detal(aff_incstate,aff_id);
+		ModelAndView mv =new ModelAndView();
+		mv.setViewName("/user_main.do");
+		return mv;
+	}
+	@RequestMapping("/transpond.do")
+	public ModelAndView dotranspond(HttpServletRequest request){
+		ModelAndView mv=new ModelAndView();
+		String unit_name=request.getParameter("unit_name");
+		Integer aff_id=Integer.parseInt(request.getParameter("aff_id"));
+		Unit unit=affairservice.checkifexist_unit(unit_name);
+		if(unit!=null){
+			affairservice.transpondaffair(aff_id,unit_name);
+			mv.addObject("transpondSuc","转发成功");
+		}
+		else{
+			mv.addObject("transpondFail", "转发单位不在系统内，请确认后再转发");
+			
+		}
+		mv.setViewName("/user_main.do");
+		return mv;
+	}
+	@RequestMapping("/publish.do")
+	public ModelAndView dopublish(HttpServletRequest request ,HttpSession session){
+		ModelAndView mv=new ModelAndView();
+		User user=(User) session.getAttribute("user");
+		Integer user_untype=user.getUser_untype();
+		if(user_untype==0||user_untype==1){
+			String aff_uniName=request.getParameter("aff_uniName");
+			//System.out.println(aff_uniName);
+			Unit unit=affairservice.checkifexist_unit(aff_uniName);
+			System.out.println(unit);
+			if(unit!=null){
+				Integer aff_incType=Integer.parseInt(request.getParameter("aff_incType"));
+				Date nowDate = new Date(System.currentTimeMillis());
+			    SimpleDateFormat time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			    String aff_incTime=time.format(nowDate);
+			    String aff_incDes=request.getParameter("aff_incDes");
+			    Affair affair=new Affair(0,0,aff_incType,aff_uniName,aff_incTime,aff_incDes);
+			    affairservice.publish(affair);
+			    mv.addObject("publishSuc","事件发布成功");
+			}
+			else{
+				mv.addObject("publishFail", "转发单位不在系统内，请确认后再转发");
+			}
+		}
+		else{
+			mv.addObject("publishFail2", "您不是市级用户和市辖区用户，不能发布事件");
+		}
+		mv.setViewName("/user_main.do");
+		return mv;
 	}
 	
 }

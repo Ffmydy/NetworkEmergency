@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -25,7 +26,7 @@ public class UserController {
 		this.service = service;
 	}
 	@RequestMapping("/login.do")
-	public ModelAndView doLogin(String account_number,String password,HttpServletRequest request,HttpServletResponse response){
+	public ModelAndView doLogin(String account_number,String password,HttpServletRequest request,HttpServletResponse response,HttpSession session){
 		//System.out.print(account_number);
 		//System.out.print(password);
 		ModelAndView mv=new ModelAndView();
@@ -35,6 +36,7 @@ public class UserController {
 		else{
 		User user =service.userLogin(account_number, password);
 		if(user!=null){
+			session.setAttribute("user", user);
 			Date nowDate = new Date(System.currentTimeMillis());
 		    SimpleDateFormat time = new SimpleDateFormat("yyyy年MM月dd日HH时mm分ss秒");
 		    String log_time=time.format(nowDate);

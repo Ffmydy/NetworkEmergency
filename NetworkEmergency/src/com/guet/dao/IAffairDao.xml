@@ -29,7 +29,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	
-	
 	<select id="toManagement" resultType="Affair">
 		select * from affair
 	</select>
@@ -48,6 +47,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="toUnit" resultType="Unit">
 		SELECT * FROM unit WHERE unit_type=#{0}
 	</select>
-	
-	
+	<select id="showownaffair" resultType="Affair">
+		select * from affair where aff_uniName=#{unit_name}
+	</select>
+	<update id="detal">
+		update affair set aff_incstate=#{0} where aff_id=#{1}
+	</update>
+	<select id="checkifexit_unit" resultType="Unit">
+		select * from unit where unit_name=#{unit_name}
+	</select>
+	<update id="transpondaffair">
+		update affair set aff_uniName=#{1} where aff_id=#{0}
+	</update>
+	<insert id="publish">
+		insert into affair(aff_incstate,aff_incType,aff_uniName,aff_incTime,aff_incDes)
+		values(#{aff_incstate},#{aff_incType},#{aff_uniName},#{aff_incTime},#{aff_incDes})
+	</insert>
 </mapper>
