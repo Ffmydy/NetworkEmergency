@@ -63,7 +63,7 @@
                
                 <!-- Log out               -->
                <div class="list-inline-item logout" >   
-	                <a id="logout" href="index.jsp" class="nav-link"> 
+	                <a id="logout" href="logout.do" class="nav-link"> 
 		                <span class="d-none d-sm-inline">Logout </span>
 		                <i class="icon-logout"></i>
 	                </a>

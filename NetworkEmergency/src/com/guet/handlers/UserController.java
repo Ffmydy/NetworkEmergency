@@ -38,7 +38,7 @@ public class UserController {
 		if(user!=null){
 			session.setAttribute("user", user);
 			Date nowDate = new Date(System.currentTimeMillis());
-		    SimpleDateFormat time = new SimpleDateFormat("yyyy年MM月dd日HH时mm分ss秒");
+		    SimpleDateFormat time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		    String log_time=time.format(nowDate);
 			Log log=new Log(0,user.getUser_id(),user.getUser_name(),log_time);
 			service.addlog(log);
@@ -50,5 +50,10 @@ public class UserController {
 		}
 	}
 		return mv;
+	}
+	@RequestMapping("/logout.do")
+	public String dosecede(HttpSession session){
+		session.invalidate();
+		return "index.jsp";
 	}
 }

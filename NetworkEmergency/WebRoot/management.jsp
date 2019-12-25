@@ -107,7 +107,7 @@ function condition1(){
           </div>
           <div class="right-menu list-inline no-margin-bottom">                         
             <!-- Log out               -->
-            <div class="list-inline-item logout"><a id="logout" href="index.jsp" class="nav-link"> <span class="d-none d-sm-inline">Logout </span><i class="icon-logout"></i></a></div>
+            <div class="list-inline-item logout"><a id="logout" href="logout.do" class="nav-link"> <span class="d-none d-sm-inline">Logout </span><i class="icon-logout"></i></a></div>
           </div>
         </div>
       </nav>
